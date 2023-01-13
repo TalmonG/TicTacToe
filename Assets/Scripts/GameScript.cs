@@ -17,36 +17,25 @@ public class GameScript : MonoBehaviour
 
     public Seed Turn;
 
-    // to keep track of the empty, cross and nought cells
     public GameObject[] allSpawns = new GameObject[9];
 
-    // to maintain the state of the cell
     public Seed[] player = new Seed[9];
 
-    // to track the first and last cells of the winning row or column or diagonal
     Vector2 pos1, pos2;
 
     private void Awake()
     {
-        // to get the Game mode information from the previous scene
         GameObject persistantObj = GameObject.FindGameObjectWithTag("PersistantObj") as GameObject;
         gameMode = persistantObj.GetComponent<PersistanceScript>().gameMode;
         Destroy(persistantObj);
 
-        // gameMode = "vscpu";
 
         if (gameMode == "vscpu")
-            player2Name.text = "CPU Player";
+        Debug.Log("Hi");
         else
-            player2Name.text = "2nd Player";
 
-        // set turn as 1st player which is CROSS
         Turn = Seed.CROSS;
 
-        // Set initial instruction
-        Instructions.text = "Turn: 1st Player";
-
-        // to maintain the state of the cell
         for (int i = 0; i < 9; i++)
             player[i] = Seed.EMPTY;
 
@@ -54,7 +43,6 @@ public class GameScript : MonoBehaviour
 
     public void Spawn(GameObject emptycell, int id)
     {
-        // conditions to spawn cross or nought
         if (Turn == Seed.CROSS)
         {
             allSpawns[id] = Instantiate(cross, emptycell.transform.position, Quaternion.identity);
@@ -62,23 +50,16 @@ public class GameScript : MonoBehaviour
 
             if (Won(Turn))
             {
-                // change the turn
                 Turn = Seed.EMPTY;
 
-                // change the instructions
-                Instructions.text = "Player-1 has won!!!";
 
-                // Spawn bar
                 float slope = calculateSlope();
                 Instantiate(bar, calculateCenter(), Quaternion.Euler(0, 0, slope));
             }
             else
             {
-                // change the turn
                 Turn = Seed.NOUGHT;
 
-                // change the instructions
-                Instructions.text = "Turn: 2nd Player";
             }
         }
 
@@ -89,22 +70,17 @@ public class GameScript : MonoBehaviour
 
             if (Won(Turn))
             {
-                // change the turn
                 Turn = Seed.EMPTY;
 
-                // change the instructions
                 Instructions.text = "Player-2 has won!!!";
 
-                // Spawn bar
                 float slope = calculateSlope();
                 Instantiate(bar, calculateCenter(), Quaternion.Euler(0, 0, slope));
             }
             else
             {
-                // change the turn
                 Turn = Seed.CROSS;
 
-                // change the instructions
                 Instructions.text = "Turn: 1st Player";
             }
         }
@@ -138,11 +114,8 @@ public class GameScript : MonoBehaviour
 
             if (Won(Turn))
             {
-                // change the turn
                 Turn = Seed.EMPTY;
 
-                // change the instructions
-                Instructions.text = "Player-2 has won!!!";
 
                 // Spawn bar
                 float slope = calculateSlope();
@@ -150,21 +123,15 @@ public class GameScript : MonoBehaviour
             }
             else
             {
-                // change the turn
                 Turn = Seed.CROSS;
 
-                // change the instructions
-                Instructions.text = "Turn: 1st Player";
             }
         }
 
         if (IsDraw())
         {
-            // change the turn
             Turn = Seed.EMPTY;
 
-            // change the instructions
-            Instructions.text = "It is a draw!!";
         }
 
         Destroy(emptycell);
@@ -192,7 +159,6 @@ public class GameScript : MonoBehaviour
                                                 {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
                                                 {0, 4, 8}, {2, 4, 6} };
 
-        // check conditions
         for (int i = 0; i < 8; i++)
         {
             if (player[allConditions[i, 0]] == currPlayer &
@@ -201,7 +167,6 @@ public class GameScript : MonoBehaviour
             {
                 hasWon = true;
 
-                // keep track of the winning positions to spawn a Bar
                 pos1 = allSpawns[allConditions[i, 0]].transform.position;
                 pos2 = allSpawns[allConditions[i, 2]].transform.position;
                 break;
@@ -214,13 +179,10 @@ public class GameScript : MonoBehaviour
     {
         bool player1Won, player2Won, anyEmpty;
 
-        // check if player-1 has won or not
         player1Won = Won(Seed.CROSS);
 
-        // check if player-2 has won or not
         player2Won = Won(Seed.NOUGHT);
 
-        // check if there is any empty cell or not
         anyEmpty = IsAnyEmpty();
 
         bool isDraw = false;
