@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScreen.unity
     guid: f021778be8c054d4fb206d591056d601
+  - enabled: 1
+    path: Assets/Scenes/LostGame.unity
+    guid: 8e2c45344ecaf9d4bb5eee9d67a5d08b
+  - enabled: 1
+    path: Assets/Scenes/Draw.unity
+    guid: 8712a34fbb5a84443bb78b39813a9115
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: 7165b792fbad96c45af4668e71f0064e
   m_configObjects: {}

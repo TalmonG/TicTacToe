@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GameScript : MonoBehaviour
@@ -52,7 +53,7 @@ public class GameScript : MonoBehaviour
             {
                 Turn = Seed.EMPTY;
 
-
+                Debug.Log("Cross Won");
                 float slope = calculateSlope();
                 Instantiate(bar, calculateCenter(), Quaternion.Euler(0, 0, slope));
             }
@@ -72,6 +73,7 @@ public class GameScript : MonoBehaviour
             {
                 Turn = Seed.EMPTY;
 
+                
 
                 float slope = calculateSlope();
                 Instantiate(bar, calculateCenter(), Quaternion.Euler(0, 0, slope));
@@ -115,9 +117,12 @@ public class GameScript : MonoBehaviour
                 Turn = Seed.EMPTY;
 
 
-                // Spawn bar
                 float slope = calculateSlope();
                 Instantiate(bar, calculateCenter(), Quaternion.Euler(0, 0, slope));
+                SceneManager.LoadScene("LostGame");
+                Debug.Log("Lost Game");
+
+
             }
             else
             {
@@ -129,7 +134,7 @@ public class GameScript : MonoBehaviour
         if (IsDraw())
         {
             Turn = Seed.EMPTY;
-
+            SceneManager.LoadScene("Draw");
         }
 
         Destroy(emptycell);
