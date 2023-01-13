@@ -72,7 +72,6 @@ public class GameScript : MonoBehaviour
             {
                 Turn = Seed.EMPTY;
 
-                Instructions.text = "Player-2 has won!!!";
 
                 float slope = calculateSlope();
                 Instantiate(bar, calculateCenter(), Quaternion.Euler(0, 0, slope));
@@ -81,7 +80,6 @@ public class GameScript : MonoBehaviour
             {
                 Turn = Seed.CROSS;
 
-                Instructions.text = "Turn: 1st Player";
             }
         }
 
